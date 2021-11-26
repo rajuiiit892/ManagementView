@@ -1,5 +1,10 @@
 .App {
-  text-align: center;
+  height: auto;
+  padding-top: 40px;
+  /* border: 1px solid; */
+  padding-left: 302px;
+  background: white;
+  height: fit-content;
 }
 
 .App-logo {
@@ -35,4 +40,93 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+.font14 {
+  font-size: 0.875em;
+}
+.font16 {
+  font-size: 16px;
+}
+.font12 {
+  font-size: 0.75em;
+}
+.card-header {
+  font-family: segoe-ui;
+  color: #323130;
+  line-height: 20px;
+  font-weight: 700;
+  text-align: left;
+}
+.card-description{
+  text-align: left;
+  display: -webkit-box;
+    max-width: 200px;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+.link {
+  color: #0078d4;
+  font-family: segoe-ui;
+  float: left;
+}
+.ml-5{
+  margin-left: 5px;
+}
+.footer {
+  bottom: 10px;
+  position: absolute;
+}
+.footer-right {
+  font-size: 14px;
+  font-family: segoe-ui;
+  cursor: pointer;
+}
+.footer-left {
+  font-size: 14px;
+  cursor: pointer;
+  margin-right: 45px;
+  font-family: segoe-ui;
+}
+.image-size {
+  float: left;
+  position: relative;
+  top: 10px;
+  width: 88px;
+  height: 58px;
+  border: 1px solid #0078d4;
+}
+.display-view{
+  display: inline-block;
+  margin-right: 10px;
+  margin-bottom: 10px;
+}
+.container{
+  border-left: 1px solid #EDEBE9;
+  border-top:  1px solid #EDEBE9;
+  padding-left: 45px;
+}
+.contentmanagement-title{
+  font-size: 14px;
+  font-family: segoe-ui;
+  color: #323130;
+  line-height: 20px;
+  font-weight: 600;
+}
+.contentmanagement-dropdown{
+  width: 300px;
+  height: 32px;
+  border-radius: 2px;
+  border: 1px solid #605E5C;
+  display: inline-block;
+  /* margin-top: 5px; */
+}
+.contentmanagement-button{
+    height: 32px;
+    display: inline-block;
+    margin-left: 5px;
+    margin-top: 0px;
+    border-radius: 2px;
+    border: 1px solid #605E5C;
 }
