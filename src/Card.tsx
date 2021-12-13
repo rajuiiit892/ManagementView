@@ -1,18 +1,13 @@
-import React from 'react';
-import { HeCard, HeIcon, HeTooltip } from '@harmony/enablers/react';
+import React, { useState } from 'react';
+import { HeCard, HeIcon, HeTooltip, HeButton } from '@harmony/enablers/react';
+import {ComponentDetail} from './ContentDetailComponent';
+import { ContentPanelData } from './Assets/DummyData';
+import { ToolTipRef } from './Interface/contentInterface';
 
 interface CardProps{
     title: String,
     description: string,
     imageUrl: string,
-}
-
-interface ToolTipRef{
-    current: {
-        anchorElement: any 
-    },
-    getAnchor: any,
-    anchorElement: any
 }
 
 
@@ -25,6 +20,11 @@ const Card=({ title,description,imageUrl }: CardProps)=>{
             popover.current.anchorElement=button.current;
         }
       }, []);
+      const [isOpen, setIsOpen] =useState(false);
+      // const removeCard = (i: number) => {
+      //   console.log('index', i);
+        
+      // }
     return(
         <div className="display-view">
             <HeTooltip ref={popover} position="bottom">{description}</HeTooltip>
@@ -46,8 +46,10 @@ const Card=({ title,description,imageUrl }: CardProps)=>{
     {imageUrl &&
     <img src={imageUrl} className="image-size" alt="test"  /> }
     <div className="footer">
-      <span
+      <HeButton
       className="footer-left"
+      appearance="lightweight"
+      onClick={()=>setIsOpen(true)}
       >
         <HeIcon 
           style={{
@@ -57,9 +59,11 @@ const Card=({ title,description,imageUrl }: CardProps)=>{
           }} name="edit" 
         />
         Edit
-      </span>
-      <span
+      </HeButton>
+      <HeButton
+      appearance="lightweight"
       className="footer-right"
+      // onClick={()=>removeCard(index)}
       >
         <HeIcon 
           style={{
@@ -69,9 +73,15 @@ const Card=({ title,description,imageUrl }: CardProps)=>{
           }} name="delete" 
         />
         Delete
-      </span>
+      </HeButton>
     </div>
   </HeCard>
+  {isOpen ? <ComponentDetail 
+            header="Edit your information" 
+            isOpen={isOpen} 
+            setIsOpen={()=>setIsOpen(false)}
+            data={ContentPanelData}
+      /> : null}
   </div>
     );
 }

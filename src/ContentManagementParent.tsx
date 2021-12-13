@@ -1,113 +1,61 @@
-import React,{ useState, useEffect } from 'react';
-import Card from './Card';
-import {  HeSelect, HeOption, HeButton } from '@harmony/enablers/react'
+import React, { useState, useEffect } from 'react';
+import { HeSelect, HeOption, HeButton } from '@harmony/enablers/react'
 import ContentManagementWidget from './ContentManagementWidget';
+import {dropdownList, data, itemTypes} from './Assets/DummyData';
 
-interface OptionsListTypes{
-    id: number,
-    name: string
-}
+const ContentManagementParent = () => {
+  // const [optionsList, setOptionsList] = useState<Array<OptionsListTypes>>([]);
+  // const [optionsList, setOptionsList] = useState(dropdownList);
+  // const [selectedOption, setSelectedOption] = useState<any>({});
+  const [isCard, showCards] = useState(false);
+  const [rowsList, setRowsList] = useState<any>([]);
 
-const rowsList=[
-  {
-    title: "What's new",
-    id: 1,
-    details: [ {
-      title: "Title of information",
-      description: "Description of the information in not more than 3,4lines.Description of the information in not", 
-      imageUrl: "https://image.shutterstock.com/image-photo/nature-picture-looking-beautiful-this-260nw-1552406618.jpg"
-    },
-    {
-      title:"Title of information",
-      description: "Description of the information in not more than 3,4lines",
-      imageUrl:""
-    },
-    {
-      title: "Title of information",
-      description: "Description of the information in not more than 3,4lines.Description of the information in not", 
-      imageUrl: "https://image.shutterstock.com/image-photo/nature-picture-looking-beautiful-this-260nw-1552406618.jpg"
-    },
-    {
-      title:"Title of information",
-      description: "Description of the information in not more than 3,4lines",
-      imageUrl:""
-    }
-  ]
-  },
-  {
-    title: "Annoucements",
-    id: 2,
-    details: [ {
-      title: "Title of information",
-      description: "Description of the information in not more than 3,4lines.Description of the information in not", 
-      imageUrl: "https://image.shutterstock.com/image-photo/nature-picture-looking-beautiful-this-260nw-1552406618.jpg"
-    },
-    {
-      title:"Title of information",
-      description: "Description of the information in not more than 3,4lines",
-      imageUrl:""
-    },
-    {
-      title: "Title of information",
-      description: "Description of the information in not more than 3,4lines.Description of the information in not", 
-      imageUrl: "https://image.shutterstock.com/image-photo/nature-picture-looking-beautiful-this-260nw-1552406618.jpg"
-    },
-    {
-      title:"Title of information",
-      description: "Description of the information in not more than 3,4lines",
-      imageUrl:""
-    }
-  ]
-  },
-  {
-    title: "Recommendations",
-    id: 3,
-    details: []
+  useEffect(() => {
+    // onGetOptionsData()
+  }, []);
+
+  const onChangeSelectOptions = (e: any) => {
+    const value = JSON.parse(e.target.value);
+    const arrShortedByPage = data.filter((item)=> item.page === value.page);
+    const arrShortedByProgram = arrShortedByPage.filter((item)=> item.program === value.program);
+    console.log('shorted e=======>>>', arrShortedByProgram);
+    
+    let tempArr : any = {};
+    const selectedList = itemTypes.map((item)=>{
+      console.log('item e=======>>>', item);
+      tempArr = {
+        ...tempArr,
+        title: item[0].toUpperCase() + item.slice(1),
+        details: arrShortedByProgram.filter((i)=>i.type === item)
+      };
+      console.log("arr e=======>>>", tempArr);
+      return tempArr;
+    });
+    setRowsList(selectedList);
+    console.log("e=======>>>", value, rowsList, selectedList);
   }
-]
 
- const ContentManagementParent=()=>{
-     const [optionsList, setOptionsList] =useState<Array<OptionsListTypes>>([]);
-     const [selectedOption, setSelectedOption]=useState<number>(2);
-     useEffect(()=>{
-        onGetOptionsData()
-     },[])
-
-     const onGetOptionsData=()=>{
-       let data=[{
-           id: 1,
-           name: "Marketplace offers - Summary",
-       },
-       {
-        id: 2,
-        name: "Marketplace offers - Order",
-    }
-    ]
-       // setSelectedOption(1)
-        setOptionsList(data)
-     }
-
-     const onChangeSelectOptions=(e:any)=>{
-        setSelectedOption(e.target.value)
-     }
-     console.log("e", selectedOption)
-    return(
-        <div className="container">
-            <span className="contentmanagement-title">Insights page</span>
-            <br/>
-            <HeSelect onChange={onChangeSelectOptions} className="contentmanagement-dropdown">
-            {
-                optionsList?.map(option=><HeOption key={option.id} value={option.id}>{option.name}</HeOption>)
-            }
-            </HeSelect>
-            <HeButton className="contentmanagement-button" appearance="outline"> View details </HeButton>
-            <div style={{ paddingTop: 20 }}>
-              {
-                rowsList.map(list=> <ContentManagementWidget key={list.id} title={list.title} cardsList={list.details} />)
-              }
-            </div>
-        </div>
-    )
+  const handleViewDetails = () => {
+    // onChangeSelectOptions;
+    showCards(true);
+  }
+  return (
+    <div className="container">
+      <span className="contentmanagement-title">Insights page</span>
+      <br />
+      <HeSelect onChange={onChangeSelectOptions} className="contentmanagement-dropdown">
+        {
+          Object.keys(dropdownList)?.map((option : string, i : number) =>{return dropdownList[option].map((listItem : string, index : number) => <HeOption key={i*10+index} value={JSON.stringify({'page': option, 'program': listItem})} >{option+'- '+listItem}</HeOption>)})
+        }
+      </HeSelect>
+      <HeButton className="contentmanagement-button" appearance="outline" onClick={()=>handleViewDetails()}> View details </HeButton>
+      {(isCard && rowsList.length) ? <div style={{ paddingTop: 20 }}>
+        {
+          rowsList.map((list: any, i : number) => <ContentManagementWidget key={i} title={list.title} cardsList={list.details} />)
+        }
+      </div> : null}
+    </div>
+  )
 }
 
 export default ContentManagementParent;
