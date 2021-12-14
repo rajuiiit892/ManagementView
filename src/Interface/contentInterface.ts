@@ -19,8 +19,9 @@ export interface ContentPanelDataProps {
     text: string,
     media: boolean,
     image: boolean,
-    imageUrl: string
-}
+    imageUrl: string,
+    expired?: boolean
+};
 
 export interface ToolTipRef{
     current: {
@@ -28,4 +29,15 @@ export interface ToolTipRef{
     },
     getAnchor: any,
     anchorElement: any
-}
+};
+
+export interface WidgetProps {
+    title: string,
+    cardsList: Array<CardProps>
+};
+
+export interface CardProps {
+    title: String,
+    description: string,
+    imageUrl: string
+};

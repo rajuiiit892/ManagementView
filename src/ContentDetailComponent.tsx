@@ -29,7 +29,7 @@ export function ComponentDetail({ isOpen, data, header, setIsOpen }: ContentDeta
     const tooltip = useRef<ToolTipRef>(null);
     const [createDissableState, setCreateState] = useState(true);
     const invalidMSG : any = {
-        expiryDate: "Date should be greater than today's date"
+        expiryDate: "Past date is not applicable"
     };
     let validationCondition : boolean = true;
 
@@ -77,7 +77,7 @@ export function ComponentDetail({ isOpen, data, header, setIsOpen }: ContentDeta
                 const changedDate = new Date(field.value);
                 console.log('changed data ==>', changedDate, currDate);
                 
-                validationCondition = (changedDate.getTime() - currDate.getTime()) > 0;
+                validationCondition = (changedDate.getTime() - currDate.getTime()) >= 0;
                 console.log('validation condition', validationCondition, mappingData);
                 
             }else if (fieldName === '') {
@@ -157,16 +157,12 @@ export function ComponentDetail({ isOpen, data, header, setIsOpen }: ContentDeta
             onHeRequestClose={setIsOpen}
             open={isOpen}
         >{mappingData && <>
-            {mappingData.title ? <HeTextField style={{ marginTop: '25px' }} required type="text" value={mappingData.title}>
+            <HeTextField style={{ marginTop: '25px' }} required type="text" value={mappingData.title} placeholder="Type here">
                 Title
-            </HeTextField> : <HeTextField style={{ marginTop: '25px' }} placeholder="Type here" required type="text">
-                Title
-            </HeTextField>}
-            {mappingData.description ? <HeTextField style={{ marginTop: '25px' }} value={mappingData.description}>
+            </HeTextField>
+            <HeTextField style={{ marginTop: '25px' }} value={mappingData.description} placeholder="Helper text">
                 Description
-            </HeTextField> : <HeTextField style={{ marginTop: '25px' }} placeholder="Helper text">
-                Description
-            </HeTextField>}
+            </HeTextField>
             <HeText
                 className={"font14"}
                 style={{ marginTop: '25px' }}
@@ -179,16 +175,12 @@ export function ComponentDetail({ isOpen, data, header, setIsOpen }: ContentDeta
                 <HeText style={{ paddingLeft: '8px' }}>{isHyperlink ? 'Yes' : 'No'}</HeText>
             </div>
             {isHyperlink ? <>
-                {mappingData.url ? <HeTextField required style={{ marginTop: '25px' }} value={mappingData.url}>
+                <HeTextField required style={{ marginTop: '25px' }} placeholder="Type here" value={mappingData.url}>
                     Hyperlink url
-                </HeTextField> : <HeTextField required style={{ marginTop: '25px' }} placeholder="Type here">
-                    Hyperlink url
-                </HeTextField>}
-                {mappingData.text ? <HeTextField style={{ marginTop: '25px' }} value={mappingData.text}>
+                </HeTextField>
+                <HeTextField style={{ marginTop: '25px' }} value={mappingData.text}>
                     Hyperlink text
-                </HeTextField> : <HeTextField style={{ marginTop: '25px' }} placeholder="Type here">
-                    Hyperlink text
-                </HeTextField>}</>
+                </HeTextField></>
                 : null}
             <HeText
                 className={"font14"}
@@ -236,7 +228,6 @@ export function ComponentDetail({ isOpen, data, header, setIsOpen }: ContentDeta
             </div>
             {isExpiry && <HeTextField name='expiryDate' type="date" required style={{ flex: '1 0 40%', minWidth: '250px', marginTop: '25px' }} onChange={(e: any) => handleOnChange(e.target, true)} value={mappingData.expiryDate} showValidity={isDateFieldNotValid}>
                 Expiry date
-                {/* <HeIcon slot="end" name="calendar"/> */}
             </HeTextField>}
             <div slot="footer" style={{ display: 'flex' }}>
                 <HeButton appearance="outline" style={{ marginRight: '10px' }} disabled={createDissableState} onClick={() => handleCreate()}>Create</HeButton>

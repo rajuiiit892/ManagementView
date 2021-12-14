@@ -1,5 +1,6 @@
 export const data=[
     {
+        id: 1,
         page: 'marketplace offers',
         program: 'summary',
         type: 'notices',
@@ -8,8 +9,10 @@ export const data=[
         description: 'The maximum latency between customer purchasing the offer and it being reported here is 48 hours.',
         learnMoreLink: 'https://harmonyhub.azurewebsites.net/',
         showFeedBack: true,
+        expired: true
     },
     {
+        id: 2,
         page: 'marketplace offers',
         program: 'orders',
         type: 'announcements',
@@ -20,6 +23,7 @@ export const data=[
         showFeedBack: false,
     },
     {
+        id: 3,
         page: 'marketplace offers',
         program: 'summary',
         type: 'recommendations',
@@ -30,6 +34,7 @@ export const data=[
         showFeedBack: false,
     },
     {
+        id: 4,
         page: 'membership',
         program: 'products',
         type: 'insights',
@@ -40,6 +45,7 @@ export const data=[
         showFeedBack: false,
     },
     {
+        id: 5,
         page: 'membership',
         program: 'customer',
         type: 'announcements',
@@ -50,6 +56,7 @@ export const data=[
         showFeedBack: false,
     },
     {
+        id: 6,
         page: 'referrals',
         program: 'Leads',
         type: "what's new",
@@ -60,6 +67,7 @@ export const data=[
         showFeedBack: true,
     },
     {
+        id: 7,
         page: 'referrals',
         program: 'summary',
         type: 'announcements',
@@ -70,6 +78,7 @@ export const data=[
         showFeedBack: false,
     },
     {
+        id: 8,
         page: 'marketplace offers',
         program: 'orders',
         type: "what's new",
